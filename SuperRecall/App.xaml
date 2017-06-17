@@ -1,0 +1,8 @@
+﻿<Application x:Class="SuperRecall.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Views\ElementsView.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

@@ -133,6 +133,16 @@
                                     <help:ElementsViewTemplateSelector QueueTemplate="{StaticResource QueueLearn}" RevisionTemplate="{StaticResource ReviseWatch}"/>
                                 </DataGridTemplateColumn.CellTemplateSelector>
                             </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+                                            <Button Margin="5" Width="auto" Height="30" Content="A"/>
+                                            <Button Margin="5" Width="auto" Height="30" Content="Options"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                   <Button Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5" Content="Back"/>

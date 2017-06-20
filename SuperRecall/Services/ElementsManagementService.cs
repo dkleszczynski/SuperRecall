@@ -14,7 +14,7 @@ namespace SuperRecall.Services
 
         public List<Element> LoadElements()
         {
-            _elementsMockup.Add(new QueueElement() { Question = "zielony", Answer = "green", Group = "default" });
+            _elementsMockup.Add(new ReviseElement() { Question = "zielony", Answer = "green", Group = "default" });
             _elementsMockup.Add(new QueueElement() { Question = "czerwony", Answer = "red", Group = "default" });
             _elementsMockup.Add(new QueueElement() { Question = "żółty", Answer = "yellow", Group = "default" });
             _elementsMockup.Add(new QueueElement() { Question = "fioletowy", Answer = "purple", Group = "default" });

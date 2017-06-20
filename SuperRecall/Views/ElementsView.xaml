@@ -3,7 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SuperRecall.Views"
+        xmlns:self="clr-namespace:SuperRecall.Views"
+        xmlns:help="clr-namespace:SuperRecall.Helpers"
+        xmlns:res="clr-namespace:SuperRecall.Resources"
+        xmlns:model="clr-namespace:SuperRecall.Models"
         mc:Ignorable="d"
         Title="Elements Manager" Height="1240" Width="860" WindowState="Maximized">
     <Grid>
@@ -104,10 +107,32 @@
                     <TextBox Name="pageNumberText" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="5">page 1/10</TextBox>
                     <Button Name="nextPageBtn" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5">next</Button>
                     <DataGrid Name="ElementsGrid" ItemsSource="{Binding Elements}" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch"  VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Margin="5">
+                        <DataGrid.Resources>
+                            <DataTemplate x:Key="QueueLearn" DataType="{x:Type model:QueueElement}">
+                                <ToggleButton x:Name="LearningToggle" VerticalAlignment="Center" Height="auto" Width="80" Margin="2" IsChecked="{Binding IsSelected}">
+                                    <TextBlock Padding="0" Margin="0" Text="{x:Static res:ElementsView.InLearning}"></TextBlock>
+                                </ToggleButton>
+                            </DataTemplate>
+                            <DataTemplate x:Key="ReviseWatch" DataType="{x:Type model:ReviseElement}">
+                                <ToggleButton x:Name="WatchingToggle" VerticalAlignment="Center" Height="auto" Width="80" Margin="2" IsChecked="{Binding IsSelected}">
+                                    <TextBlock Text="{x:Static res:ElementsView.Watched}"></TextBlock>
+                                </ToggleButton>
+                            </DataTemplate>
+                        </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="QuestionColumn" Header="Question" Binding="{Binding Question}" SortMemberPath="Question" Width="*" CanUserSort="True"/>
                             <DataGridTextColumn  Header="Answer" Binding="{Binding Answer}" SortMemberPath="Answer" Width="*" CanUserSort="True"/>
                             <DataGridTextColumn Header="Group" Binding="{Binding Group}" SortMemberPath="Group" Width="*" CanUserSort="True"/>
+                            <DataGridTemplateColumn Header="State"  Width="auto">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                                <DataGridTemplateColumn.CellTemplateSelector>
+                                    <help:ElementsViewTemplateSelector QueueTemplate="{StaticResource QueueLearn}" RevisionTemplate="{StaticResource ReviseWatch}"/>
+                                </DataGridTemplateColumn.CellTemplateSelector>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                   <Button Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5" Content="Back"/>

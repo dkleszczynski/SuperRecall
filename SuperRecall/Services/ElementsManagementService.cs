@@ -17,7 +17,7 @@ namespace SuperRecall.Services
             _elementsMockup.Add(new ReviseElement() { Question = "zielony", Answer = "green", Group = "default" });
             _elementsMockup.Add(new QueueElement() { Question = "czerwony", Answer = "red", Group = "default" });
             _elementsMockup.Add(new QueueElement() { Question = "żółty", Answer = "yellow", Group = "default" });
-            _elementsMockup.Add(new QueueElement() { Question = "fioletowy", Answer = "purple", Group = "default" });
+            /*_elementsMockup.Add(new QueueElement() { Question = "fioletowy", Answer = "purple", Group = "default" });
             _elementsMockup.Add(new QueueElement() { Question = "złoty", Answer = "golden", Group = "default" });
             _elementsMockup.Add(new QueueElement() { Question = "srebny", Answer = "silver", Group = "default" });
 
@@ -33,7 +33,7 @@ namespace SuperRecall.Services
             _elementsMockup.Add(new QueueElement() { Question = "żółty", Answer = "yellow", Group = "default" });
             _elementsMockup.Add(new QueueElement() { Question = "fioletowy", Answer = "purple", Group = "default" });
             _elementsMockup.Add(new QueueElement() { Question = "złoty", Answer = "golden", Group = "default" });
-            _elementsMockup.Add(new QueueElement() { Question = "srebny", Answer = "silver", Group = "default" });
+            _elementsMockup.Add(new QueueElement() { Question = "srebny", Answer = "silver", Group = "default" });*/
 
             return _elementsMockup;
         }

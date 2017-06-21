@@ -74,6 +74,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\ElementsViewTemplateSelector.cs" />
+    <Page Include="Resources\ElementsViewResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ElementsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

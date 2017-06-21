@@ -8,6 +8,7 @@
         xmlns:res="clr-namespace:SuperRecall.Resources"
         xmlns:model="clr-namespace:SuperRecall.Models"
         mc:Ignorable="d"
+        Name="ElementsViewWindow"
         Title="Elements Manager" Height="1240" Width="860" WindowState="Maximized">
     <Grid>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 0 10 0">
@@ -106,7 +107,7 @@
                     <Button Name="prevPageBtn" Grid.Row="2" HorizontalAlignment="Left" Margin="5">previous</Button>
                     <TextBox Name="pageNumberText" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="5">page 1/10</TextBox>
                     <Button Name="nextPageBtn" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5">next</Button>
-                    <DataGrid Name="ElementsGrid" ItemsSource="{Binding Elements}" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch"  VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Margin="5">
+                    <DataGrid Name="ElementsGrid" ItemsSource="{Binding Elements}" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch"  VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Margin="5" SelectedItem="{Binding SelectedElement, Mode=TwoWay}">
                         <DataGrid.Resources>
                             <DataTemplate x:Key="QueueLearn" DataType="{x:Type model:QueueElement}">
                                 <ToggleButton x:Name="LearningToggle" VerticalAlignment="Center" Height="auto" Width="80" Margin="2" IsChecked="{Binding IsSelected}">
@@ -138,7 +139,7 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
                                             <Button Margin="5" Width="auto" Height="30" Content="A"/>
-                                            <Button Margin="5" Width="auto" Height="30" Content="Options"/>
+                                            <Button Name="OptionsBtn" Margin="5" Width="auto" Height="30" Content="Options" Command="{Binding ElementName=ElementsViewWindow, Path=DataContext.ShowOptionsMenuCommand}" CommandParameter="{Binding ElementName=root, Path=(FocusManager.FocusedElement)}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

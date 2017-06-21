@@ -1,4 +1,5 @@
-﻿using SuperRecall.Services;
+﻿using SuperRecall.Models;
+using SuperRecall.Services;
 using SuperRecall.ViewModels;
 using System;
 using System.Collections.Generic;

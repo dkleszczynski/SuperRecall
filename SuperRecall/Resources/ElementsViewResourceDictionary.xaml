@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:SuperRecall.Resources">
+
+    <ContextMenu x:Key="QueueMenu">
+        <MenuItem FontSize="18" Header="Plan revise"></MenuItem>
+        <Separator></Separator>
+        <MenuItem FontSize="18" Header="DeleteElement"></MenuItem>
+    </ContextMenu>
+    <ContextMenu x:Key="ReviseMenu">
+        <MenuItem FontSize="18" Header="Learn again"></MenuItem>
+        <Separator></Separator>
+        <MenuItem FontSize="18" Header="Delete element"></MenuItem>
+    </ContextMenu>
+
+</ResourceDictionary>

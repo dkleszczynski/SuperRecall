@@ -7,6 +7,7 @@
         xmlns:help="clr-namespace:SuperRecall.Helpers"
         xmlns:res="clr-namespace:SuperRecall.Resources"
         xmlns:model="clr-namespace:SuperRecall.Models"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Name="ElementsViewWindow"
         Title="Elements Manager" Height="1240" Width="860" WindowState="Maximized">
@@ -52,7 +53,6 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
-                       
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -61,9 +61,13 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Column="2" HorizontalAlignment="Center" >
-                        <TextBox Name="SearchBox" HorizontalAlignment="Center" Margin="10"></TextBox>
-                    </Grid>
+                    <TextBox Name="SearchBox" Grid.Column="2" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="20">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding SearchBoxTextChangedCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
                     <WrapPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Margin="10">
                         <StackPanel Margin="10">
                             <TextBlock Margin="5" FontSize="19" FontWeight="Bold">Source:</TextBlock>
@@ -78,16 +82,6 @@
                         <StackPanel Margin="10">
                             <TextBlock Margin="5" FontSize="19" FontWeight="Bold">Group:</TextBlock>
                             <ComboBox Name="GroupSelect" Margin="5">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding}" FontSize="19" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </StackPanel>
-                        <StackPanel Margin="10">
-                            <TextBlock Margin="5" FontSize="19" FontWeight="Bold">Field:</TextBlock>
-                            <ComboBox Name="FieldSelect" Margin="5">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding}" FontSize="19" />

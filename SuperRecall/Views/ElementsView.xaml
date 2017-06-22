@@ -119,8 +119,36 @@
                                     <TextBlock Text="{x:Static res:ElementsView.Watched}"></TextBlock>
                                 </ToggleButton>
                             </DataTemplate>
+                            <DataTemplate x:Key="QueueProgress" DataType="{x:Type model:QueueElement}">
+                                <ProgressBar Height="20"  Value="{Binding LearningProgress}" Margin="3 5 3 5">
+                                    <ProgressBar.ToolTip>
+                                        <ToolTip Content="{Binding LearningProgress}" ContentStringFormat="{} {0} %" />
+                                    </ProgressBar.ToolTip>
+                                    <ProgressBar.LayoutTransform>
+                                        <RotateTransform Angle="-90" />
+                                    </ProgressBar.LayoutTransform>
+                                </ProgressBar>
+                            </DataTemplate>
+                            <DataTemplate x:Key="ReviseProgress" DataType="{x:Type model:ReviseElement}">
+                                <Grid>
+                                    <ProgressBar Height="20"  Value="100" Margin="3 5 3 5">
+                                        <ProgressBar.LayoutTransform>
+                                            <RotateTransform Angle="-90" />
+                                        </ProgressBar.LayoutTransform>
+                                    </ProgressBar>
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ReviewDates.Count}"></TextBlock>
+                                    <Grid.ToolTip>
+                                        <ToolTip Content="{Binding ReviewDates.Count}" ContentStringFormat="Revise count: {0}" />
+                                    </Grid.ToolTip>
+                                </Grid>
+                            </DataTemplate>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="   " CanUserSort="True"  Width="auto" SortMemberPath="LearningProgress">
+                                <DataGridTemplateColumn.CellTemplateSelector>
+                                    <help:ElementsViewTemplateSelector QueueTemplate="{StaticResource QueueProgress}" RevisionTemplate="{StaticResource ReviseProgress}"/>
+                                </DataGridTemplateColumn.CellTemplateSelector>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn x:Name="QuestionColumn" Header="Question" Binding="{Binding Question}" SortMemberPath="Question" Width="*" CanUserSort="True"/>
                             <DataGridTextColumn  Header="Answer" Binding="{Binding Answer}" SortMemberPath="Answer" Width="*" CanUserSort="True"/>
                             <DataGridTextColumn Header="Group" Binding="{Binding Group}" SortMemberPath="Group" Width="*" CanUserSort="True"/>

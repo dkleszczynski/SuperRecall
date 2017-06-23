@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GlobalEnums\SourceType.cs" />
     <Compile Include="Models\Element.cs" />
     <Compile Include="Models\QueueElement.cs" />
     <Compile Include="Models\ReviseElement.cs" />

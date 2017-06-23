@@ -71,12 +71,13 @@
                     <WrapPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Margin="10">
                         <StackPanel Margin="10">
                             <TextBlock Margin="5" FontSize="19" FontWeight="Bold">Source:</TextBlock>
-                            <ComboBox Name="SourceSelect" Margin="5">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding}" FontSize="19" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
+                            <ComboBox Name="SourceSelect" Margin="5" SelectedIndex="0">
+                                <ComboBox.Items>
+                                    <ComboBoxItem Content="Queue"/>
+                                    <ComboBoxItem Content="Revision"/>
+                                    <ComboBoxItem Content="Everywhere"/>
+                                </ComboBox.Items>
+                                
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Margin="10">
@@ -98,9 +99,16 @@
                             </CheckBox>
                         </StackPanel>
                     </WrapPanel>
-                    <Button Name="prevPageBtn" Grid.Row="2" HorizontalAlignment="Left" Margin="5">previous</Button>
-                    <TextBox Name="pageNumberText" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="5">page 1/10</TextBox>
-                    <Button Name="nextPageBtn" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5">next</Button>
+                    <Button Grid.Row="2" HorizontalAlignment="Left" Margin="5" Command="{Binding PreviousPageCommand}">previous</Button>
+                    <TextBox Name="pageNumberText" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="5">
+                        <TextBox.Text>
+                            <MultiBinding StringFormat="page {0} / {1}">
+                                <Binding Path="CurrentPage" />
+                                <Binding Path="PageCount" />
+                            </MultiBinding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <Button Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5" Command="{Binding NextPageCommand}">next</Button>
                     <DataGrid Name="ElementsGrid" ItemsSource="{Binding Elements}" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch"  VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Margin="5" SelectedItem="{Binding SelectedElement, Mode=TwoWay}">
                         <DataGrid.Resources>
                             <DataTemplate x:Key="QueueLearn" DataType="{x:Type model:QueueElement}">

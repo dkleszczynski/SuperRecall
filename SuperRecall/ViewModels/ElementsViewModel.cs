@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using SuperRecall.GlobalEnums;
 
 namespace SuperRecall.ViewModels
 {
@@ -22,6 +23,7 @@ namespace SuperRecall.ViewModels
         private string _searchText;
         private int _currentPage;
         private int _pageCount;
+        private List<KeyValuePair<SourceType, string>> _sourcesList;
 
         public ObservableCollection<Element> Elements { get; set; }
         public Element SelectedElement { get; set; }
@@ -64,6 +66,16 @@ namespace SuperRecall.ViewModels
             }
         }
 
+        public List<KeyValuePair<SourceType, string>> SourcesList
+        {
+            get { return _sourcesList; }
+            set
+            {
+                _sourcesList = value;
+                OnPropertyChanged("SourcesList");
+            }
+        }
+
         public ElementsViewModel(IElementsManagementService elementsManagementService)
         {
             _elementsManagementService = elementsManagementService;
@@ -72,6 +84,8 @@ namespace SuperRecall.ViewModels
             SearchBoxTextChangedCommand = new RelayCommand(SearchBoxTextChangeExecute);
             PreviousPageCommand = new RelayCommand(PreviousPageExecute);
             NextPageCommand = new RelayCommand(NextPageExecute);
+
+            SourcesListPrepare();
 
             ElementsView = CollectionViewSource.GetDefaultView(Elements);
             ElementsView.Filter = ElementsFilter;
@@ -191,6 +205,16 @@ namespace SuperRecall.ViewModels
 
             //Refiltering
             ElementsView.Filter = PagingFilter;
+        }
+        
+        private void SourcesListPrepare()
+        {
+            _sourcesList = new List<KeyValuePair<SourceType, string>>()
+            {
+                new KeyValuePair<SourceType, string>(SourceType.Everywhere, "everywhere"),
+                new KeyValuePair<SourceType, string>(SourceType.Queue, "queue"),
+                new KeyValuePair<SourceType, string>(SourceType.Revision, "revision")
+            };
         }
 
         private void OnPropertyChanged(string propertyName)

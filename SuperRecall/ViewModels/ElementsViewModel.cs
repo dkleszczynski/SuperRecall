@@ -30,11 +30,13 @@ namespace SuperRecall.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public ICollectionView ElementsView { get; private set; }
         public List<Element> ItemsInPage { get; private set; }
+        public KeyValuePair<SourceType, string> SelectedSource { get; set; }
         
         public ICommand ShowOptionsMenuCommand { get; set; }
         public ICommand SearchBoxTextChangedCommand { get; set; }
         public ICommand PreviousPageCommand { get; set; }
         public ICommand NextPageCommand { get; set; }
+        public ICommand SourceSelectedCommand { get; set; }
 
         public string SearchText
         {
@@ -84,6 +86,7 @@ namespace SuperRecall.ViewModels
             SearchBoxTextChangedCommand = new RelayCommand(SearchBoxTextChangeExecute);
             PreviousPageCommand = new RelayCommand(PreviousPageExecute);
             NextPageCommand = new RelayCommand(NextPageExecute);
+            SourceSelectedCommand = new RelayCommand(SourceSelectedExecute);
 
             SourcesListPrepare();
 
@@ -95,14 +98,30 @@ namespace SuperRecall.ViewModels
 
         private bool ElementsFilter(object item)
         {
+            Element element = (Element)item;
+
+            if (SelectedSource.Key == SourceType.Queue)
+            {
+                if (element is ReviseElement)
+                {
+                    return false;
+                }
+            }
+
+            if (SelectedSource.Key == SourceType.Revision)
+            {
+                if (element is QueueElement)
+                {
+                    return false;
+                }
+            }
+
             if (String.IsNullOrEmpty(SearchText))
             {
                 return true;
             }
             else
             {
-                Element element = (Element)item;
-
                 if (element.Question.Contains(SearchText) || element.Answer.Contains(SearchText))
                 {
                     return true;
@@ -175,6 +194,15 @@ namespace SuperRecall.ViewModels
             {
                 CurrentPage = 1;
             }
+
+            PagePrepare();
+            ElementsView.Refresh();
+        }
+
+        public void SourceSelectedExecute(Object sender)
+        {
+            ElementsView.Filter = ElementsFilter;
+            CurrentPage = 1;
 
             PagePrepare();
             ElementsView.Refresh();

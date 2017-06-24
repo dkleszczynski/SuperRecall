@@ -23,7 +23,10 @@ namespace SuperRecall.ViewModels
         private string _searchText;
         private int _currentPage;
         private int _pageCount;
-        private List<KeyValuePair<SourceType, string>> _sourcesList;
+        private List<KeyValuePair<SourceType, string>> _sourceList;
+        private List<string> _groupList;
+        private string _selectedGroup;
+        private int _selectedGroupIndex;
 
         public ObservableCollection<Element> Elements { get; set; }
         public Element SelectedElement { get; set; }
@@ -31,12 +34,14 @@ namespace SuperRecall.ViewModels
         public ICollectionView ElementsView { get; private set; }
         public List<Element> ItemsInPage { get; private set; }
         public KeyValuePair<SourceType, string> SelectedSource { get; set; }
-        
+                
         public ICommand ShowOptionsMenuCommand { get; set; }
         public ICommand SearchBoxTextChangedCommand { get; set; }
         public ICommand PreviousPageCommand { get; set; }
         public ICommand NextPageCommand { get; set; }
-        public ICommand SourceSelectedCommand { get; set; }
+        public ICommand SourceSelectionChangedCommand { get; set; }
+        public ICommand GroupSelectionChangedCommand { get; set; }
+        public ICommand GroupListLoadedCommand { get; set; }
 
         public string SearchText
         {
@@ -68,13 +73,43 @@ namespace SuperRecall.ViewModels
             }
         }
 
-        public List<KeyValuePair<SourceType, string>> SourcesList
+        public List<KeyValuePair<SourceType, string>> SourceList
         {
-            get { return _sourcesList; }
+            get { return _sourceList; }
             set
             {
-                _sourcesList = value;
-                OnPropertyChanged("SourcesList");
+                _sourceList = value;
+                OnPropertyChanged("SourceList");
+            }
+        }
+
+        public List<string> GroupList
+        {
+            get { return _groupList; }
+            set
+            {
+                _groupList = value;
+                OnPropertyChanged("GroupList");
+            }
+        }
+
+        public string SelectedGroup
+        {
+            get { return _selectedGroup; }
+            set
+            {
+                _selectedGroup = value;
+                OnPropertyChanged("SelectedGroup");
+            }
+        }
+
+        public int SelectedGroupIndex
+        {
+            get { return _selectedGroupIndex; }
+            set
+            {
+                _selectedGroupIndex = value;
+                OnPropertyChanged("SelectedGroupIndex");
             }
         }
 
@@ -82,11 +117,16 @@ namespace SuperRecall.ViewModels
         {
             _elementsManagementService = elementsManagementService;
             Elements = new ObservableCollection<Element>(_elementsManagementService.LoadElements());
+            _groupList = new List<string>(_elementsManagementService.LoadGroups());
+            _groupList.Insert(0, "all");
+            
             ShowOptionsMenuCommand = new RelayCommand(ShowOptionsMenuExecute);
             SearchBoxTextChangedCommand = new RelayCommand(SearchBoxTextChangeExecute);
             PreviousPageCommand = new RelayCommand(PreviousPageExecute);
             NextPageCommand = new RelayCommand(NextPageExecute);
-            SourceSelectedCommand = new RelayCommand(SourceSelectedExecute);
+            SourceSelectionChangedCommand = new RelayCommand(SourceSelectionChangedExecute);
+            GroupSelectionChangedCommand = new RelayCommand(GroupSelectionChangedExecute);
+            GroupListLoadedCommand = new RelayCommand(GroupListLoadedExecute);
 
             SourcesListPrepare();
 
@@ -114,6 +154,12 @@ namespace SuperRecall.ViewModels
                 {
                     return false;
                 }
+            }
+
+            //If selected option for group is not all and the group name is different
+            if (SelectedGroupIndex != 0 && SelectedGroup.Equals(element.Group) == false)
+            {
+                return false;
             }
 
             if (String.IsNullOrEmpty(SearchText))
@@ -199,7 +245,7 @@ namespace SuperRecall.ViewModels
             ElementsView.Refresh();
         }
 
-        public void SourceSelectedExecute(Object sender)
+        public void SourceSelectionChangedExecute(Object sender)
         {
             ElementsView.Filter = ElementsFilter;
             CurrentPage = 1;
@@ -208,10 +254,32 @@ namespace SuperRecall.ViewModels
             ElementsView.Refresh();
         }
 
+        public void GroupSelectionChangedExecute(Object sender)
+        {
+            ElementsView.Filter = ElementsFilter;
+                       
+            CurrentPage = 1;
+
+            PagePrepare();
+            ElementsView.Refresh();
+        }
+
+        public void GroupListLoadedExecute(Object sender)
+        {
+            SelectedGroupIndex = 0;
+        }
+
         private void PagePrepare()
         {
             int filteredCount = ElementsView.Cast<Element>().ToList().Count;
             PageCount = (int)Math.Ceiling((double)filteredCount / ItemsPerPage);
+
+            if (PageCount == 0)
+            {
+                CurrentPage = 0;
+                return;
+            }
+
             int startIndex = (CurrentPage - 1) * ItemsPerPage;
             int currentIndex = 0;
             ItemsInPage = new List<Element>();
@@ -237,7 +305,7 @@ namespace SuperRecall.ViewModels
         
         private void SourcesListPrepare()
         {
-            _sourcesList = new List<KeyValuePair<SourceType, string>>()
+            _sourceList = new List<KeyValuePair<SourceType, string>>()
             {
                 new KeyValuePair<SourceType, string>(SourceType.Everywhere, "everywhere"),
                 new KeyValuePair<SourceType, string>(SourceType.Queue, "queue"),

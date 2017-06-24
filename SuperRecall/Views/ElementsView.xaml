@@ -71,22 +71,25 @@
                     <WrapPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Margin="10">
                         <StackPanel Margin="10">
                             <TextBlock Margin="5" FontSize="19" FontWeight="Bold">Source:</TextBlock>
-                            <ComboBox Name="SourceSelect" Margin="5" SelectedIndex="0" ItemsSource="{Binding SourcesList}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedItem="{Binding SelectedSource}">
+                            <ComboBox Name="SourceSelect" Margin="5" SelectedIndex="0" ItemsSource="{Binding SourceList}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedItem="{Binding SelectedSource}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="{Binding  SourceSelectedCommand}"/>
+                                        <i:InvokeCommandAction Command="{Binding  SourceSelectionChangedCommand}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Margin="10">
                             <TextBlock Margin="5" FontSize="19" FontWeight="Bold">Group:</TextBlock>
-                            <ComboBox Name="GroupSelect" Margin="5">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding}" FontSize="19" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
+                            <ComboBox Name="GroupSelect" Margin="5" SelectedIndex="{Binding SelectedGroupIndex, Mode=TwoWay}" ItemsSource="{Binding GroupList}" SelectedItem="{Binding SelectedGroup}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding  GroupSelectionChangedCommand}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Loaded">
+                                        <i:InvokeCommandAction Command="{Binding  GroupListLoadedCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Margin="10">

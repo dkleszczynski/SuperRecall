@@ -10,5 +10,6 @@ namespace SuperRecall.Services.Interfaces
     public interface IElementsManagementService
     {
         List<Element> LoadElements();
+        List<string> LoadGroups();
     }
 }

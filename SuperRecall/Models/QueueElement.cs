@@ -9,6 +9,16 @@ namespace SuperRecall.Models
     [Serializable]
     public class QueueElement : Element
     {
-        public int LearningProgress { get; set; }
+        private int _learningProgress;
+
+        public int LearningProgress
+        {
+            get { return _learningProgress; }
+            set
+            {
+                _learningProgress = value;
+                OnPropertyChanged("LearningProgress");
+            }
+        }
     }
 }

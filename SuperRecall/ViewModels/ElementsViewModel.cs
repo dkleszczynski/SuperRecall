@@ -34,6 +34,7 @@ namespace SuperRecall.ViewModels
         public ICollectionView ElementsView { get; private set; }
         public List<Element> ItemsInPage { get; private set; }
         public KeyValuePair<SourceType, string> SelectedSource { get; set; }
+        public bool SelectedCheckBoxIsChecked { get; set; }
                 
         public ICommand ShowOptionsMenuCommand { get; set; }
         public ICommand SearchBoxTextChangedCommand { get; set; }
@@ -42,6 +43,8 @@ namespace SuperRecall.ViewModels
         public ICommand SourceSelectionChangedCommand { get; set; }
         public ICommand GroupSelectionChangedCommand { get; set; }
         public ICommand GroupListLoadedCommand { get; set; }
+        public ICommand SelectedCheckBoxClickCommand { get; set; }
+        public ICommand ElementSelectionClickCommand { get; set; }
 
         public string SearchText
         {
@@ -127,6 +130,8 @@ namespace SuperRecall.ViewModels
             SourceSelectionChangedCommand = new RelayCommand(SourceSelectionChangedExecute);
             GroupSelectionChangedCommand = new RelayCommand(GroupSelectionChangedExecute);
             GroupListLoadedCommand = new RelayCommand(GroupListLoadedExecute);
+            SelectedCheckBoxClickCommand = new RelayCommand(SelectedCheckBoxClickExecute);
+            ElementSelectionClickCommand = new RelayCommand(ElementSelectionClickExecute);
 
             SourcesListPrepare();
 
@@ -158,6 +163,12 @@ namespace SuperRecall.ViewModels
 
             //If selected option for group is not all and the group name is different
             if (SelectedGroupIndex != 0 && SelectedGroup.Equals(element.Group) == false)
+            {
+                return false;
+            }
+
+            //If only selected elements should be displayed
+            if (SelectedCheckBoxIsChecked == true && element.IsSelected == false)
             {
                 return false;
             }
@@ -257,7 +268,6 @@ namespace SuperRecall.ViewModels
         public void GroupSelectionChangedExecute(Object sender)
         {
             ElementsView.Filter = ElementsFilter;
-                       
             CurrentPage = 1;
 
             PagePrepare();
@@ -267,6 +277,25 @@ namespace SuperRecall.ViewModels
         public void GroupListLoadedExecute(Object sender)
         {
             SelectedGroupIndex = 0;
+        }
+
+        public void SelectedCheckBoxClickExecute(Object sender)
+        {
+            ElementsView.Filter = ElementsFilter;
+            CurrentPage = 1;
+
+            PagePrepare();
+            ElementsView.Refresh();
+        }
+
+        public void ElementSelectionClickExecute(Object sender)
+        {
+            SelectedElement.IsSelected = !SelectedElement.IsSelected;
+            ElementsView.Filter = ElementsFilter;
+            CurrentPage = 1;
+
+            PagePrepare();
+            ElementsView.Refresh();
         }
 
         private void PagePrepare()

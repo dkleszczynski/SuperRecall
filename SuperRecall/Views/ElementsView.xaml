@@ -94,7 +94,7 @@
                         </StackPanel>
                         <StackPanel Margin="10">
                             <TextBlock Margin="5" FontSize="19" FontWeight="Bold">Selected:</TextBlock>
-                            <CheckBox Name="SelectedCheck"  Margin="5 5 5 5" HorizontalAlignment="Center">
+                            <CheckBox Name="SelectedCheck"  Margin="5 5 5 5" HorizontalAlignment="Center" IsChecked="{Binding SelectedCheckBoxIsChecked}" Command="{Binding SelectedCheckBoxClickCommand}">
                                 <CheckBox.LayoutTransform>
                                     <ScaleTransform ScaleX="2" ScaleY="2" />
                                 </CheckBox.LayoutTransform>
@@ -114,13 +114,17 @@
                     <DataGrid Name="ElementsGrid" ItemsSource="{Binding Elements}" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch"  VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Margin="5" SelectedItem="{Binding SelectedElement, Mode=TwoWay}">
                         <DataGrid.Resources>
                             <DataTemplate x:Key="QueueLearn" DataType="{x:Type model:QueueElement}">
-                                <ToggleButton x:Name="LearningToggle" VerticalAlignment="Center" Height="auto" Width="80" Margin="2" IsChecked="{Binding IsSelected}">
-                                    <TextBlock Padding="0" Margin="0" Text="{x:Static res:ElementsView.InLearning}"></TextBlock>
-                                </ToggleButton>
+                                <ToggleButton x:Name="LearningToggle" VerticalAlignment="Center" Height="auto" Width="80" Margin="2" IsChecked="{Binding IsSelected}" Command="{Binding ElementName=ElementsViewWindow, Path=DataContext.ElementSelectionClickCommand}">
+                                    <ToggleButton.Content>
+                                        <TextBlock Padding="0" Margin="0" Text="{x:Static res:ElementsView.InLearning}"/>
+                                    </ToggleButton.Content>
+                                 </ToggleButton>
                             </DataTemplate>
                             <DataTemplate x:Key="ReviseWatch" DataType="{x:Type model:ReviseElement}">
-                                <ToggleButton x:Name="WatchingToggle" VerticalAlignment="Center" Height="auto" Width="80" Margin="2" IsChecked="{Binding IsSelected}">
-                                    <TextBlock Text="{x:Static res:ElementsView.Watched}"></TextBlock>
+                                <ToggleButton x:Name="WatchingToggle" VerticalAlignment="Center" Height="auto" Width="80" Margin="2" IsChecked="{Binding IsSelected}" Command="{Binding ElementName=ElementsViewWindow, Path=DataContext.ElementSelectionClickCommand}">
+                                    <ToggleButton.Content>
+                                        <TextBlock Text="{x:Static res:ElementsView.Watched}"/>
+                                    </ToggleButton.Content>
                                 </ToggleButton>
                             </DataTemplate>
                             <DataTemplate x:Key="QueueProgress" DataType="{x:Type model:QueueElement}">

@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using SuperRecall.GlobalEnums;
+using System.Threading;
 
 namespace SuperRecall.ViewModels
 {
@@ -23,6 +24,7 @@ namespace SuperRecall.ViewModels
         private string _searchText;
         private int _currentPage;
         private int _pageCount;
+        private string _pageText;
         private List<KeyValuePair<SourceType, string>> _sourceList;
         private List<string> _groupList;
         private string _selectedGroup;
@@ -76,6 +78,16 @@ namespace SuperRecall.ViewModels
             }
         }
 
+        public string PageText
+        {
+            get
+            {
+                return Resources.ElementsView.PageText;
+            }
+
+            set { _pageText = value; }
+        }
+
         public List<KeyValuePair<SourceType, string>> SourceList
         {
             get { return _sourceList; }
@@ -121,7 +133,7 @@ namespace SuperRecall.ViewModels
             _elementsManagementService = elementsManagementService;
             Elements = new ObservableCollection<Element>(_elementsManagementService.LoadElements());
             _groupList = new List<string>(_elementsManagementService.LoadGroups());
-            _groupList.Insert(0, "all");
+            _groupList.Insert(0, Resources.ElementsView.All);
             
             ShowOptionsMenuCommand = new RelayCommand(ShowOptionsMenuExecute);
             SearchBoxTextChangedCommand = new RelayCommand(SearchBoxTextChangeExecute);
@@ -336,7 +348,7 @@ namespace SuperRecall.ViewModels
         {
             _sourceList = new List<KeyValuePair<SourceType, string>>()
             {
-                new KeyValuePair<SourceType, string>(SourceType.Everywhere, "everywhere"),
+                new KeyValuePair<SourceType, string>(SourceType.Everywhere, Resources.ElementsView.Everywhere),
                 new KeyValuePair<SourceType, string>(SourceType.Queue, "queue"),
                 new KeyValuePair<SourceType, string>(SourceType.Revision, "revision")
             };

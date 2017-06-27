@@ -3,14 +3,14 @@
                     xmlns:local="clr-namespace:SuperRecall.Resources">
 
     <ContextMenu x:Key="QueueMenu">
-        <MenuItem FontSize="18" Header="Plan revise"></MenuItem>
+        <MenuItem FontSize="18" Header="{x:Static local:ElementsView.PlanRevise}"></MenuItem>
         <Separator></Separator>
-        <MenuItem FontSize="18" Header="DeleteElement"></MenuItem>
+        <MenuItem FontSize="18" Header="{x:Static local:ElementsView.DeleteElement}"></MenuItem>
     </ContextMenu>
     <ContextMenu x:Key="ReviseMenu">
-        <MenuItem FontSize="18" Header="Learn again"></MenuItem>
+        <MenuItem FontSize="18" Header="{x:Static local:ElementsView.LearnAgain}"></MenuItem>
         <Separator></Separator>
-        <MenuItem FontSize="18" Header="Delete element"></MenuItem>
+        <MenuItem FontSize="18" Header="{x:Static local:ElementsView.DeleteElement}"></MenuItem>
     </ContextMenu>
 
 </ResourceDictionary>

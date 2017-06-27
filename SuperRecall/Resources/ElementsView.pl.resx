@@ -118,66 +118,66 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="All" xml:space="preserve">
-    <value>all</value>
+    <value>wszystkie</value>
   </data>
   <data name="AnswerHeader" xml:space="preserve">
-    <value>Answer</value>
+    <value>Odpowiedź</value>
   </data>
   <data name="DeleteElement" xml:space="preserve">
-    <value>Delete element</value>
+    <value>Usuń element</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Details</value>
+    <value>Szczegóły</value>
   </data>
   <data name="EditMode" xml:space="preserve">
-    <value>Edit Mode</value>
+    <value>Tryb edycji</value>
   </data>
   <data name="Everywhere" xml:space="preserve">
-    <value>everywhere</value>
+    <value>wszędzie</value>
   </data>
   <data name="Group" xml:space="preserve">
-    <value>Group</value>
+    <value>Grupa</value>
   </data>
   <data name="GroupHeader" xml:space="preserve">
-    <value>Group</value>
+    <value>Grupa</value>
   </data>
   <data name="InLearning" xml:space="preserve">
-    <value>In Learning</value>
+    <value>Nauka</value>
   </data>
   <data name="LearnAgain" xml:space="preserve">
-    <value>Learn again</value>
+    <value>Naucz ponownie</value>
   </data>
   <data name="List" xml:space="preserve">
-    <value>List</value>
+    <value>Lista</value>
   </data>
   <data name="Next" xml:space="preserve">
-    <value>Next</value>
+    <value>Następna</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Options</value>
+    <value>Opcje</value>
   </data>
   <data name="PageText" xml:space="preserve">
-    <value>Page</value>
+    <value>Strona</value>
   </data>
   <data name="PlanRevise" xml:space="preserve">
-    <value>Plan revise</value>
+    <value>Planuj powtórkę</value>
   </data>
   <data name="Previous" xml:space="preserve">
-    <value>Previous</value>
+    <value>Poprzednia</value>
   </data>
   <data name="QuestionHeader" xml:space="preserve">
-    <value>Question</value>
+    <value>Pytanie</value>
   </data>
   <data name="Selected" xml:space="preserve">
-    <value>Selected</value>
+    <value>Wybrane</value>
   </data>
   <data name="Source" xml:space="preserve">
-    <value>Source</value>
+    <value>Źródło</value>
   </data>
   <data name="StateHeader" xml:space="preserve">
-    <value>State</value>
+    <value>Stan</value>
   </data>
   <data name="Watched" xml:space="preserve">
-    <value>Watched</value>
+    <value>Obserwowany</value>
   </data>
 </root>

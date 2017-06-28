@@ -214,6 +214,15 @@ namespace SuperRecall.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Revise count.
+        /// </summary>
+        public static string ReviseCount {
+            get {
+                return ResourceManager.GetString("ReviseCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected.
         /// </summary>
         public static string Selected {

@@ -168,6 +168,9 @@
   <data name="QuestionHeader" xml:space="preserve">
     <value>Pytanie</value>
   </data>
+  <data name="ReviseCount" xml:space="preserve">
+    <value>Liczba powtórek</value>
+  </data>
   <data name="Selected" xml:space="preserve">
     <value>Wybrane</value>
   </data>

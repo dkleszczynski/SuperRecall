@@ -8,6 +8,7 @@
         xmlns:res="clr-namespace:SuperRecall.Resources"
         xmlns:model="clr-namespace:SuperRecall.Models"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:conv="clr-namespace:SuperRecall.Views.Converters"
         mc:Ignorable="d"
         Name="ElementsViewWindow"
         Title="Elements Manager" Height="1240" Width="860" WindowState="Maximized">
@@ -147,7 +148,17 @@
                                     </ProgressBar>
                                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ReviewDates.Count}"></TextBlock>
                                     <Grid.ToolTip>
-                                        <ToolTip Content="{Binding ReviewDates.Count}" ContentStringFormat="Revise count: {0}" />
+                                        <ToolTip>
+                                            <ToolTip.Resources>
+                                                <conv:ReviseCountConverter x:Key="reviseCountConverter"/>
+                                            </ToolTip.Resources>
+                                            <ToolTip.Content>
+                                                <MultiBinding StringFormat="{}{0} {1}" Converter="{StaticResource reviseCountConverter}">
+                                                    <Binding Source="{x:Static res:ElementsView.ReviseCount}"/>
+                                                    <Binding Path="ReviewDates"/>
+                                                </MultiBinding>
+                                            </ToolTip.Content>
+                                        </ToolTip>
                                     </Grid.ToolTip>
                                 </Grid>
                             </DataTemplate>

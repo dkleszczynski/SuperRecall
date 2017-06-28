@@ -78,6 +78,7 @@
     <Compile Include="Services\ElementsManagementService.cs" />
     <Compile Include="Services\Interfaces\IElementsManagementService.cs" />
     <Compile Include="ViewModels\ElementsViewModel.cs" />
+    <Compile Include="Views\Converters\ReviseCountConverter.cs" />
     <Compile Include="Views\ElementsView.xaml.cs">
       <DependentUpon>ElementsView.xaml</DependentUpon>
     </Compile>

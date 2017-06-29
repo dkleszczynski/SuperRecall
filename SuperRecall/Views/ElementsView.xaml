@@ -12,11 +12,18 @@
         mc:Ignorable="d"
         Name="ElementsViewWindow"
         Title="Elements Manager" Height="1240" Width="860" WindowState="Maximized">
+    <Window.Resources>
+        <Style TargetType="ToggleButton">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 0 10 0">
-            <ToggleButton VerticalAlignment="Top" Name="EditModeButton" Margin="5 " HorizontalAlignment="Right">
-                <TextBlock FontSize="20" FontWeight="Bold" Text="{x:Static res:ElementsView.EditMode}"></TextBlock>
-            </ToggleButton>
+            <ToggleButton VerticalAlignment="Top" Name="EditModeButton" HorizontalAlignment="Right" FontSize="17" Content="{x:Static res:ElementsView.EditMode}"/>
         </StackPanel>
         <TabControl Name="ElementsViewTab">
             <TabControl.Resources>
@@ -30,7 +37,7 @@
                                             HorizontalAlignment="Center"
                                             ContentSource="Header"
                                             Margin="5"
-                                            TextBlock.FontSize="20"
+                                            TextBlock.FontSize="18"
                                             TextBlock.FontWeight="Bold"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -44,6 +51,19 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="17"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="ComboBox">
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="FontSize" Value="15"/>
                 </Style>
             </TabControl.Resources>
             <TabItem Name="ListTabItem" Header="{x:Static res:ElementsView.List}">
@@ -69,10 +89,10 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </TextBox>
-                    <WrapPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Margin="10">
+                    <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Orientation="Horizontal">
                         <StackPanel Margin="10">
-                            <TextBlock Margin="5" FontSize="19" FontWeight="Bold" Text="{x:Static res:ElementsView.Source}"/>
-                            <ComboBox Name="SourceSelect" Margin="5" SelectedIndex="0" ItemsSource="{Binding SourceList}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedItem="{Binding SelectedSource}">
+                            <TextBlock Text="{x:Static res:ElementsView.Source}"/>
+                            <ComboBox Name="SourceSelect" SelectedIndex="0" ItemsSource="{Binding SourceList}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedItem="{Binding SelectedSource}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction Command="{Binding  SourceSelectionChangedCommand}"/>
@@ -80,9 +100,9 @@
                                 </i:Interaction.Triggers>
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel Margin="10">
-                            <TextBlock Margin="5" FontSize="19" FontWeight="Bold" Text="{x:Static res:ElementsView.Group}"/>
-                            <ComboBox Name="GroupSelect" Margin="5" SelectedIndex="{Binding SelectedGroupIndex, Mode=TwoWay}" ItemsSource="{Binding GroupList}" SelectedItem="{Binding SelectedGroup}">
+                        <StackPanel>
+                            <TextBlock Text="{x:Static res:ElementsView.Group}"/>
+                            <ComboBox Name="GroupSelect" SelectedIndex="{Binding SelectedGroupIndex, Mode=TwoWay}" ItemsSource="{Binding GroupList}" SelectedItem="{Binding SelectedGroup}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction Command="{Binding  GroupSelectionChangedCommand}"/>
@@ -93,17 +113,17 @@
                                 </i:Interaction.Triggers>
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel Margin="10">
-                            <TextBlock Margin="5" FontSize="19" FontWeight="Bold" Text="{x:Static res:ElementsView.Selected}"/>
-                            <CheckBox Name="SelectedCheck"  Margin="5 5 5 5" HorizontalAlignment="Center" IsChecked="{Binding SelectedCheckBoxIsChecked}" Command="{Binding SelectedCheckBoxClickCommand}">
+                        <StackPanel>
+                            <TextBlock Margin="5" FontSize="17" FontWeight="Bold" Text="{x:Static res:ElementsView.Selected}"/>
+                            <CheckBox Name="SelectedCheck"  Margin="5" HorizontalAlignment="Center" IsChecked="{Binding SelectedCheckBoxIsChecked}" Command="{Binding SelectedCheckBoxClickCommand}">
                                 <CheckBox.LayoutTransform>
-                                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                                 </CheckBox.LayoutTransform>
                             </CheckBox>
                         </StackPanel>
-                    </WrapPanel>
-                    <Button Grid.Row="2" HorizontalAlignment="Left" Margin="5" Command="{Binding PreviousPageCommand}" Content="{x:Static res:ElementsView.Previous}"/>
-                    <TextBox Name="pageNumberText" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="5">
+                    </StackPanel>
+                    <Button Grid.Row="2" HorizontalAlignment="Left" Command="{Binding PreviousPageCommand}" Content="{x:Static res:ElementsView.Previous}"/>
+                    <TextBox Name="pageNumberText" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold" Margin="5">
                         <TextBox.Text>
                             <MultiBinding StringFormat="{}{2} {0} / {1}">
                                 <Binding Path="CurrentPage" />
@@ -112,22 +132,14 @@
                             </MultiBinding>
                         </TextBox.Text>
                     </TextBox>
-                    <Button Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5" Command="{Binding NextPageCommand}" Content="{x:Static res:ElementsView.Next}"/>
-                    <DataGrid Name="ElementsGrid" ItemsSource="{Binding Elements}" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch"  VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Margin="5" SelectedItem="{Binding SelectedElement, Mode=TwoWay}">
+                    <Button Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Command="{Binding NextPageCommand}" Content="{x:Static res:ElementsView.Next}"/>
+                    <DataGrid Name="ElementsGrid" ItemsSource="{Binding Elements}" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch"  VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" SelectedItem="{Binding SelectedElement, Mode=TwoWay}">
                         <DataGrid.Resources>
                             <DataTemplate x:Key="QueueLearn" DataType="{x:Type model:QueueElement}">
-                                <ToggleButton x:Name="LearningToggle" VerticalAlignment="Center" Height="auto" Width="80" Margin="2" IsChecked="{Binding IsSelected}" Command="{Binding ElementName=ElementsViewWindow, Path=DataContext.ElementSelectionClickCommand}">
-                                    <ToggleButton.Content>
-                                        <TextBlock Padding="0" Margin="0" Text="{x:Static res:ElementsView.InLearning}"/>
-                                    </ToggleButton.Content>
-                                 </ToggleButton>
+                                <ToggleButton x:Name="LearningToggle" VerticalAlignment="Center" IsChecked="{Binding IsSelected}" Content="{x:Static res:ElementsView.InLearning}" Command="{Binding ElementName=ElementsViewWindow, Path=DataContext.ElementSelectionClickCommand}"/>
                             </DataTemplate>
                             <DataTemplate x:Key="ReviseWatch" DataType="{x:Type model:ReviseElement}">
-                                <ToggleButton x:Name="WatchingToggle" VerticalAlignment="Center" Height="auto" Width="80" Margin="2" IsChecked="{Binding IsSelected}" Command="{Binding ElementName=ElementsViewWindow, Path=DataContext.ElementSelectionClickCommand}">
-                                    <ToggleButton.Content>
-                                        <TextBlock Text="{x:Static res:ElementsView.Watched}"/>
-                                    </ToggleButton.Content>
-                                </ToggleButton>
+                                <ToggleButton x:Name="WatchingToggle" VerticalAlignment="Center" IsChecked="{Binding IsSelected}" Content="{x:Static res:ElementsView.Watched}" Command="{Binding ElementName=ElementsViewWindow, Path=DataContext.ElementSelectionClickCommand}"/>
                             </DataTemplate>
                             <DataTemplate x:Key="QueueProgress" DataType="{x:Type model:QueueElement}">
                                 <ProgressBar Height="20"  Value="{Binding LearningProgress}" Margin="3 5 3 5">
@@ -162,22 +174,39 @@
                                     </Grid.ToolTip>
                                 </Grid>
                             </DataTemplate>
+                            <Style x:Key="DataGridStyle"  TargetType="TextBlock">
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                            <Style x:Key="DataGridEditStyle"  TargetType="TextBox">
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="FontStyle" Value="Italic"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
                         </DataGrid.Resources>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="16"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="   " CanUserSort="True"  Width="auto" SortMemberPath="LearningProgress">
                                 <DataGridTemplateColumn.CellTemplateSelector>
                                     <help:ElementsViewTemplateSelector QueueTemplate="{StaticResource QueueProgress}" RevisionTemplate="{StaticResource ReviseProgress}"/>
                                 </DataGridTemplateColumn.CellTemplateSelector>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn x:Name="QuestionColumn" Header="{x:Static res:ElementsView.QuestionHeader}" Binding="{Binding Question}" SortMemberPath="Question" Width="*" CanUserSort="True"/>
-                            <DataGridTextColumn  Header="{x:Static res:ElementsView.AnswerHeader}" Binding="{Binding Answer}" SortMemberPath="Answer" Width="*" CanUserSort="True"/>
-                            <DataGridTextColumn Header="{x:Static res:ElementsView.GroupHeader}" Binding="{Binding Group}" SortMemberPath="Group" Width="*" CanUserSort="True"/>
+                            <DataGridTextColumn x:Name="QuestionColumn" Header="{x:Static res:ElementsView.QuestionHeader}" Binding="{Binding Question}" SortMemberPath="Question" Width="*" CanUserSort="True" ElementStyle="{StaticResource DataGridStyle}" EditingElementStyle="{StaticResource DataGridEditStyle}"/>
+                            <DataGridTextColumn  Header="{x:Static res:ElementsView.AnswerHeader}" Binding="{Binding Answer}" SortMemberPath="Answer" Width="*" CanUserSort="True" ElementStyle="{StaticResource DataGridStyle}" EditingElementStyle="{StaticResource DataGridEditStyle}"/>
+                            <DataGridTextColumn Header="{x:Static res:ElementsView.GroupHeader}" Binding="{Binding Group}" SortMemberPath="Group" Width="*" CanUserSort="True" ElementStyle="{StaticResource DataGridStyle}" EditingElementStyle="{StaticResource DataGridEditStyle}"/>
                             <DataGridTemplateColumn Header="{x:Static res:ElementsView.StateHeader}"  Width="auto">
-                                <DataGridTemplateColumn.HeaderStyle>
-                                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplateSelector>
                                     <help:ElementsViewTemplateSelector QueueTemplate="{StaticResource QueueLearn}" RevisionTemplate="{StaticResource ReviseWatch}"/>
                                 </DataGridTemplateColumn.CellTemplateSelector>
@@ -186,8 +215,8 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
-                                            <Button Margin="5" Width="auto" Height="30" Content="A"/>
-                                            <Button Name="OptionsBtn" Margin="5" Width="auto" Height="30" Content="{x:Static res:ElementsView.Options}" Command="{Binding ElementName=ElementsViewWindow, Path=DataContext.ShowOptionsMenuCommand}" CommandParameter="{Binding ElementName=root, Path=(FocusManager.FocusedElement)}"/>
+                                            <Button Content="A"/>
+                                            <Button Name="OptionsBtn" Content="{x:Static res:ElementsView.Options}" Command="{Binding ElementName=ElementsViewWindow, Path=DataContext.ShowOptionsMenuCommand}" CommandParameter="{Binding ElementName=root, Path=(FocusManager.FocusedElement)}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
